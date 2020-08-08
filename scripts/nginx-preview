@@ -1,0 +1,7 @@
+#!/bin/bash
+set -u
+
+docker run -it --rm \
+    -v "$(pwd)/_site:/usr/share/nginx/html:ro" \
+    -p 4040:80 \
+    nginx:stable

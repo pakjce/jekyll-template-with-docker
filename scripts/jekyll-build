@@ -1,0 +1,15 @@
+#!/bin/bash
+set -u
+
+SITE_NAME=${PWD##*/}
+BUNDLE_DIR=${PROJECT_DIR}/vendor/${SITE_NAME}/bundle
+mkdir -p ${BUNDLE_DIR}
+
+docker run --rm -it \
+    -v "$(pwd):/srv/jekyll" \
+    -v "${BUNDLE_DIR}:/usr/local/bundle" \
+    -e JEKYLL_ENV=production \
+    -e JEKYLL_UID=$(id -u) \
+    -e JEKYLL_GID=$(id -g) \
+    jekyll/builder:${JEKYLL_VERSION} \
+    jekyll build
